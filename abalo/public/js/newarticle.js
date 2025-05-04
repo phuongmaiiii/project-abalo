@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function (){
     //Formular erzeugen
     const form = document.createElement('form');
     form.method = "POST";
-    form.action ="/articles";
+    //form.action ="/articles";
     form.id = "aritcleForm";
     form.enctype = "multipart/form-data"; // upload file
 
@@ -70,18 +70,21 @@ document.addEventListener("DOMContentLoaded", function (){
     form.appendChild(dateInput);
     form.appendChild(document.createElement("br"));
 
-    //Note: Pflichtfeld
-    const note = document.createElement("p");
-    note.style.fontStyle = "italic";
-    note.style.fontSize = "0.9em";
-    note.textContent = "(Note: * ist Pflichtfeld)";
-    form.appendChild(note);
 
 
     // Speichern Button
     const saveBtn = document.createElement("button");
     saveBtn.textContent = "Speichern";
     saveBtn.type = "button";
+    form.appendChild(saveBtn);
+
+    const messageDiv = document.createElement("div");
+    messageDiv.id = "form-message";
+    messageDiv.style.marginTop = "10px";
+    form.appendChild(messageDiv);
+
+    document.body.appendChild(form);
+
     saveBtn.addEventListener("click", function () {
         const name = document.getElementById("name").value.trim();
         const price = parseFloat(document.getElementById("price").value);
@@ -89,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function (){
 
         if (name === "") errors.push("Name darf nicht leer sein.");
         if (isNaN(price) || price <= 0) errors.push("Preis muss größer als 0 sein.");
-
+        /*
         let errorDiv = document.getElementById("form-errors");
         if (!errorDiv) {
             errorDiv = document.createElement("div");
@@ -104,8 +107,40 @@ document.addEventListener("DOMContentLoaded", function (){
             errorDiv.innerHTML = "";
             form.submit();
         }
+         */
+        if (errors.length > 0) {
+            messageDiv.innerHTML = errors.join("<br>");
+            messageDiv.style.color = "red";
+            return;
+        }
+
+        //Send AJAX
+        const formData = new FormData(form);
+        fetch("/articles", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": csrf
+            },
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                messageDiv.textContent = data;
+                messageDiv.style.color = data.startsWith("Erfolgreich") ? "green" : "red";
+            })
+            .catch(error => {
+                messageDiv.textContent = "Fehler: " + error.message;
+                messageDiv.style.color = "red";
+            })
     });
 
-    form.appendChild(saveBtn);
-    document.body.appendChild(form);
+
+
+
+    //Note: Pflichtfeld
+    const note = document.createElement("p");
+    note.style.fontStyle = "italic";
+    note.style.fontSize = "0.9em";
+    note.textContent = "(Note: * ist Pflichtfeld)";
+    form.appendChild(note);
 });

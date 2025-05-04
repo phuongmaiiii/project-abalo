@@ -48,3 +48,6 @@ form button:hover {
     border-radius: 6px;
     margin-bottom: 1rem;
 }
+#form-message {
+    margin-top: 10px;
+}

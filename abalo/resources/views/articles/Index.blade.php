@@ -1,19 +1,3 @@
-@extends('layouts.main')
-@if(session('success'))
-    <div style="
-        background-color: #d4edda;
-        color: #155724;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border-radius: 6px;
-        border: 1px solid #c3e6cb;
-        text-align: center;
-        max-width: 600px;
-        margin: 1rem auto;
-    ">
-        {{ session('success') }}
-    </div>
-@endif
 @section('content')
 <h1 style="text-align: center; color: cadetblue">Artikelübersicht</h1>
 
@@ -66,4 +50,20 @@
 </table>
 <script src="{{ asset('/js/cart.js') }}"></script>
 @endsection
+@extends('layouts.main')
+@if(session('success'))
+    <div style="
+        background-color: #d4edda;
+        color: #155724;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 6px;
+        border: 1px solid #c3e6cb;
+        text-align: center;
+        max-width: 600px;
+        margin: 1rem auto;
+    ">
+        {{ session('success') }}
+    </div>
+@endif
 

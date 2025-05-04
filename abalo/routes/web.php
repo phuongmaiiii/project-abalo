@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomePage;
+use App\Http\Controllers\MessageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,3 +21,8 @@ Route::get('/abalo',[HomePage::class,'index'] )->name('abalo');
 //M2-Aufgabe9
 Route::get('/newarticle',[HomePage::class,'newArticles'] )->name('articles.new');
 Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+
+//M3-Aufgabe1
+Route::get('/ajax1', [MessageController::class, 'viewStatic'])->name('ajax1');
+Route::get('/ajax2', [MessageController::class, 'viewPeriodic'])->name('ajax2');
+Route::get('/api/message', [MessageController::class, 'getMessage'])->name('api.message');

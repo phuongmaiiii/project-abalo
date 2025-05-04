@@ -8,6 +8,7 @@ use Illuminate\View\View;
 
 class HomePage extends Controller
 {
+    /*
     private function getCategories()
     {
         return ArticleCategory::select(['id', 'ab_name'])->get();
@@ -20,6 +21,14 @@ class HomePage extends Controller
     public function newArticles(): View
     {
         return view('articles.newarticle', ['categories' => $this->getCategories()]);
+    }
+    */
+    public function index(){
+        return view('homepage');
+    }
+    public function getCategories(){
+        return ArticleCategory::select(['id', 'ab_name'])->get();
+        return response()->json($categories);
     }
 
 

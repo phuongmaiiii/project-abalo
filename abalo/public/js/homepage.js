@@ -54,7 +54,6 @@ const NavigationMenu = {
             if (item.children) {
                 const childUl = this.buildMenu(item.children);
                 childUl.style.display = "none";
-                childUl.classList.add('submenu');
 
                 li.addEventListener('click', function (e) {
                     e.stopPropagation();

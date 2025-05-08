@@ -11,7 +11,8 @@
 <body>
 @include('partials.navbar')
 <h1 style="color: cadetblue; text-align: center">Neuen Artikel eingeben</h1>
-<script src="{{ asset('/js/old/newarticle_old.js') }}"></script>
+<div id="result"></div>
+<script src="{{ asset('/js/newarticle.js') }}"></script>
 </body>
 </html>
 

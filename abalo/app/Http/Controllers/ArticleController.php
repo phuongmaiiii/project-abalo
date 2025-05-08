@@ -7,6 +7,7 @@ use App\Models\ArticleCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Validator;
 
 
 class ArticleController extends Controller
@@ -40,7 +41,7 @@ class ArticleController extends Controller
             //Article in DB speichern
             $article = new Article();
             $article->ab_name = $validated['name'];
-            $article->ab_price = round($validated['price'] * 100);
+            $article->ab_price = round($validated['price'] * 100); //Euro zu Cent
             $article->ab_description = $validated['description'] ?? null;
             $article->ab_createdate = $validated['created_at'] ?? now();
             $article->ab_creator_id = Auth::id() ?? 1;
@@ -62,6 +63,48 @@ class ArticleController extends Controller
         } catch (\Exception $e) {
             return response("Fehler: " . $e->getMessage(), 500);
         }
+    }
+
+    //M3-Aufgabe7
+    public function search(Request $request){
+        $search = $request->query('search');
+
+        //check if there is no keyword then return all articles
+        $query = Article::query();
+
+        if($search){
+            $query->where('ab_name', 'ILIKE', "%$search%");
+        }
+        $articles = $query->get();
+        return response()->json([
+            'success' => true,
+            'count' => $articles->count(),
+            'data' => $articles,
+        ]);
+    }
+
+    //M3-Aufgabe8
+    public function store2(Request $request){
+        //Validierung
+        $validated = $request->validate( [
+            'name' => 'required|string|max:80',
+            'price' => 'required|numeric|min:0.01',
+            'description' => 'nullable|string|max:100',
+        ]);
+
+        //Speicherung
+        $article = new Article();
+        $article->ab_name= $validated['name'];
+        $article->ab_price= round($validated['price'] * 100);
+        $article->ab_description= $validated['description'] ?? null;
+        $article->ab_creator_id = Auth::id() ?? 1;
+        $article->ab_createdate = now();
+        $article->save();
+
+        return response()->json([
+            'success' => true,
+            'data' => $article->id,
+        ], 201); //Created
     }
 
 }

@@ -29,3 +29,6 @@ Route::get('/api/message', [MessageController::class, 'getMessage'])->name('api.
 
 //M3-Aufgabe3-4
 Route::get('/api/categories', [HomePage::class, 'getCategories'])->name('api.categories');
+
+//M3-Aufgabe8
+Route::view('/newarticle_v2', 'articles.newarticle_v2')->name('newarticle_v2');

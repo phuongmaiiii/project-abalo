@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function (){
     form.method = "POST";
     //form.action ="/articles";
     form.id = "aritcleForm";
-    form.enctype = "multipart/form-data"; // upload file
 
     //CSRF-Tocken - braucht für Sicherheit
     const csrf = document.querySelector('meta[name="csrf-token"]').content;
@@ -21,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function (){
     nameInput.type = "text";
     nameInput.name = "name";
     nameInput.id = "name";
+    nameInput.required = true;
     form.appendChild(nameLabel);
     form.appendChild(nameInput);
 
@@ -32,6 +32,9 @@ document.addEventListener("DOMContentLoaded", function (){
     const priceInput=document.createElement("input");
     priceInput.type = "number";
     priceInput.name = "price";
+    priceInput.min = "0.01";
+    priceInput.step = "0.01";
+    priceInput.required = true;
     priceInput.id = "price";
     form.appendChild(priceLabel);
     form.appendChild(priceInput);
@@ -49,27 +52,6 @@ document.addEventListener("DOMContentLoaded", function (){
 
     form.appendChild(document.createElement("br"));
 
-    //Bild (Image Upload)
-    const bildLabel = document.createElement("label");
-    bildLabel.textContent = "Bild:";
-    const bildInput = document.createElement("input");
-    bildInput.type = "file";
-    bildInput.name = "image";
-    bildInput.accept = "image/*"
-    form.appendChild(bildLabel);
-    form.appendChild(bildInput);
-    form.appendChild(document.createElement("br"));
-
-    // Erstellt am
-    const dateLabel = document.createElement("label");
-    dateLabel.textContent = "Erstellt am:";
-    const dateInput = document.createElement("input");
-    dateInput.type = "datetime-local"; // HTML5 hỗ trợ nhập ngày & giờ
-    dateInput.name = "created_at";
-    form.appendChild(dateLabel);
-    form.appendChild(dateInput);
-    form.appendChild(document.createElement("br"));
-
 
 
     // Speichern Button
@@ -78,60 +60,42 @@ document.addEventListener("DOMContentLoaded", function (){
     saveBtn.type = "button";
     form.appendChild(saveBtn);
 
-    const messageDiv = document.createElement("div");
-    messageDiv.id = "form-message";
-    messageDiv.style.marginTop = "10px";
-    form.appendChild(messageDiv);
+
 
     document.body.appendChild(form);
 
-    saveBtn.addEventListener("click", function () {
-        const name = document.getElementById("name").value.trim();
-        const price = parseFloat(document.getElementById("price").value);
-        const errors = [];
+    const resultDiv = document.getElementById("result");
+    saveBtn.addEventListener("click", function (e) {
+        e.preventDefault();
 
-        if (name === "") errors.push("Name darf nicht leer sein.");
-        if (isNaN(price) || price <= 0) errors.push("Preis muss größer als 0 sein.");
-        /*
-        let errorDiv = document.getElementById("form-errors");
-        if (!errorDiv) {
-            errorDiv = document.createElement("div");
-            errorDiv.id = "form-errors";
-            errorDiv.style.color = "red";
-            form.prepend(errorDiv);
-        }
+        const data = {
+            name: document.getElementById("name").value.trim(),
+            price: parseFloat(document.getElementById("price").value),
+            description: document.getElementById("description").value.trim()
+        };
 
-        if (errors.length > 0) {
-            errorDiv.innerHTML = errors.join("<br>");
-        } else {
-            errorDiv.innerHTML = "";
-            form.submit();
-        }
-         */
-        if (errors.length > 0) {
-            messageDiv.innerHTML = errors.join("<br>");
-            messageDiv.style.color = "red";
-            return;
-        }
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/articles", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-        //Send AJAX
-        const formData = new FormData(form);
-        fetch("/articles", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": csrf
-            },
-            body: formData
-        })
-            .then(response => response.text())
-            .then(data => {
-                messageDiv.textContent = data;
-                messageDiv.style.color = data.startsWith("Erfolgreich") ? "green" : "red";
-            })
-            .catch(error => {
-                messageDiv.textContent = "Fehler: " + error.message;
-                messageDiv.style.color = "red";
-            })
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4){
+                console.log("Status: ", xhr.status, " Response: ", xhr.responseText);
+                if(xhr.status === 201){
+                    const res = JSON.parse(xhr.responseText);
+                    if(res.success){
+                        resultDiv.innerHTML = `<p style="color: green; text-align: center;">Artikel erfolgreich gespeichert mit ID: ${res.data}</p>`;
+
+                    } else {
+                        resultDiv.innerHTML = `<p style="color: red; text-align: center;">Fehler: ${JSON.stringify(res.errors)}</p>`;
+                    }
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red; text-align: center;">Fehler beim Senden: (${xhr.status})</p>`;
+
+                }
+            }
+        };
+        xhr.send(JSON.stringify(data));
     });
 
 

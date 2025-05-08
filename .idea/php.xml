@@ -130,6 +130,7 @@
       <path value="$PROJECT_DIR$/abalo/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/abalo/vendor/barryvdh/laravel-ide-helper" />
       <path value="$PROJECT_DIR$/abalo/vendor/barryvdh/reflection-docblock" />
+      <path value="$PROJECT_DIR$/abalo/vendor/laravel/sanctum" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

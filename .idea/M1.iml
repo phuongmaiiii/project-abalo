@@ -121,6 +121,7 @@
       <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/barryvdh/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/laravel/sanctum" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

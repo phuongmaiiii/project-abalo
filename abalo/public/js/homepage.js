@@ -27,21 +27,35 @@ const NavigationMenu = {
     },
 
     injectDynamicCategories: function (callback) {
-        fetch("/api/categories")
-            .then(response => response.json())
-            .then(categories => {
-                const kategorien = this.menuData.find(item => item.title === "Kategorien");
-                if (kategorien && Array.isArray(categories)) {
-                    kategorien.children = categories.map(cat => ({
-                        title: cat.ab_name
-                    }));
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/api/categories", true);
+
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const categories = JSON.parse(xhr.responseText);
+                    const kategorien = this.menuData.find(item => item.title === "Kategorien");
+                    if (kategorien && Array.isArray(categories)) {
+                        kategorien.children = categories.map(cat => ({
+                            title: cat.ab_name
+                        }));
+                    }
+                    console.log("Kategorien:", categories);
+                } catch (e) {
+                    console.error("Fehler beim Parsen der Antwort:", e);
                 }
-                callback(); // Gọi callback sau khi dữ liệu đã được inject
-            })
-            .catch(error => {
-                console.error("Fehler beim Laden der Kategorien:", error);
-                callback(); // Dù lỗi vẫn tiếp tục render menu cơ bản
-            });
+            } else {
+                console.error("Fehler beim Laden der Kategorien:", xhr.statusText);
+            }
+            callback(); // Luôn gọi callback
+        };
+
+        xhr.onerror = () => {
+            console.error("Netzwerkfehler beim Laden der Kategorien");
+            callback();
+        };
+
+        xhr.send();
     },
 
     buildMenu: function (data) {

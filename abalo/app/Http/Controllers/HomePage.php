@@ -27,7 +27,7 @@ class HomePage extends Controller
         return view('homepage');
     }
     public function getCategories(){
-        return ArticleCategory::select(['id', 'ab_name'])->get();
+        $categories =  ArticleCategory::select(['id', 'ab_name'])->get();
         return response()->json($categories);
     }
 

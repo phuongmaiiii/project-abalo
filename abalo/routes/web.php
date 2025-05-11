@@ -26,6 +26,9 @@ Route::post('/articles', [ArticleController::class, 'store'])->name('articles.st
 Route::get('/ajax1', [MessageController::class, 'viewStatic'])->name('ajax1');
 Route::get('/ajax2', [MessageController::class, 'viewPeriodic'])->name('ajax2');
 Route::get('/api/message', [MessageController::class, 'getMessage'])->name('api.message');
+//M3-Aufgabe1-optional
+Route::view('/ajax1-static', 'ajax-xml.3-ajax1-static');
+Route::view('/ajax2-periodic', 'ajax-xml.3-ajax2-periodic');
 
 //M3-Aufgabe3-4
 Route::get('/api/categories', [HomePage::class, 'getCategories'])->name('api.categories');

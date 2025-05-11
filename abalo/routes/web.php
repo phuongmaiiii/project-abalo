@@ -20,7 +20,7 @@ Route::get('/abalo',[HomePage::class,'index'] )->name('abalo');
 
 //M2-Aufgabe9
 Route::view('/newarticle', 'articles.newarticle')->name('newarticle');
-Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store'); //M3-Aufgabe2
 
 //M3-Aufgabe1
 Route::get('/ajax1', [MessageController::class, 'viewStatic'])->name('ajax1');
@@ -29,6 +29,7 @@ Route::get('/api/message', [MessageController::class, 'getMessage'])->name('api.
 //M3-Aufgabe1-optional
 Route::view('/ajax1-static', 'ajax-xml.3-ajax1-static');
 Route::view('/ajax2-periodic', 'ajax-xml.3-ajax2-periodic');
+
 
 //M3-Aufgabe3-4
 Route::get('/api/categories', [HomePage::class, 'getCategories'])->name('api.categories');

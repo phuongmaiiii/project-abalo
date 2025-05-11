@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function (){
                         resultDiv.innerHTML = `<p style="color: red; text-align: center;">Fehler: ${JSON.stringify(res.errors)}</p>`;
                     }
                 } else {
-                    resultDiv.innerHTML = `<p style="color: red; text-align: center;">Fehler beim Senden: (${xhr.status})</p>`;
+                    resultDiv.innerHTML = `<p style="color: red; text-align: center;">Fehler:Name darf nicht leer sein. Preis muss größer als 0 sein. </p>`;
 
                 }
             }

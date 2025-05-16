@@ -32,7 +32,9 @@ class Article extends Model
     protected $fillable = ['ab_name', 'ab_price', 'ab_description', 'ab_createdate'];
     public $timestamps = false;
 
-    public function cartItems(){
-        return $this->hasMany(ShoppingCartItem::class, 'ab_article_id');
+
+    //M4-Aufgabe5
+    public function categorys(){
+        return $this->belongsTo(ArticleCategory::class);
     }
 }

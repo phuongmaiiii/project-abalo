@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $ab_name
@@ -23,4 +23,9 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleCategory extends Model
 {
     protected $table = 'ab_articlecategory';
+
+    //M4-Aufgabe5
+    public function articles(){
+        return $this->belongsToMany(Article::class);
+    }
 }

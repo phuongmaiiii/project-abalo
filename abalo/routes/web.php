@@ -36,3 +36,8 @@ Route::get('/api/categories', [HomePage::class, 'getCategories'])->name('api.cat
 
 //M3-Aufgabe8
 Route::view('/newarticle_v2', 'articles.newarticle_v2')->name('newarticle_v2');
+
+//M4-Aufgabe10
+Route::get('/abalo/articles', function () {
+    return view('homepage');
+});

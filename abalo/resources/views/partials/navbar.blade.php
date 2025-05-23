@@ -4,5 +4,6 @@
 <script>
     window.articleCategories = @json($categories ?? []);
 </script>
-<script src="{{ asset('/js/homepage.js') }}"></script>
-<script src="{{ asset('/js/cookiecheck.js') }}"></script>
+@vite('resources/js/homepage.js')
+@vite('resources/js/cookiecheck.js')
+

@@ -48,7 +48,7 @@
     @endforeach
     </tbody>
 </table>
-<script src="{{ asset('/js/cart.js') }}"></script>
+@vite('resources/js/cart.js')
 @endsection
 @extends('layouts.main')
 @if(session('success'))

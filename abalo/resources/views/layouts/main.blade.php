@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Abalo</title>
-    <link rel="stylesheet" href="{{ asset('/css/homepage.css') }}">
-    <link rel="stylesheet" href="{{asset('/css/cart.css')}}">
+    @vite('resources/css/homepage.css')
+    @vite('resources/css/cart.css')
 </head>
 <body>
 @include('partials.navbar')

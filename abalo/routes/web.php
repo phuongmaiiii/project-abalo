@@ -41,3 +41,7 @@ Route::view('/newarticle_v2', 'articles.newarticle_v2')->name('newarticle_v2');
 Route::get('/abalo/articles', function () {
     return view('homepage');
 });
+//M4-Aufgabe12
+Route::get('/abalo/newarticle', function () {
+    return view('articles.newarticle_v3');
+});

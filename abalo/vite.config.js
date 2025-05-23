@@ -17,6 +17,7 @@ export default defineConfig({
                 'resources/js/test.js',
                 'resources/js/old/homepage_old.js',
                 'resources/js/old/newarticle_old.js',
+                'resources/js/vue/newarticle.js',
 
                 'resources/css/homepage.css',
                 'resources/css/newarticle.css',

@@ -18,6 +18,7 @@ createApp({
             this.successMessage = "";
             this.errorMessage = "";
             try{
+                //await: pause the async function until the Promise (like calling api, querying DB, waiting for response from server) resolves, then get the result
                 const response = await axios.post('/api/articles', this.form,{
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')

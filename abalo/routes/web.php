@@ -45,3 +45,8 @@ Route::get('/abalo/articles', function () {
 Route::get('/abalo/newarticle', function () {
     return view('articles.newarticle_v3');
 });
+
+//M5-Aufgabe2
+Route::get('/newsite', function () {
+    return view('newsite');
+});

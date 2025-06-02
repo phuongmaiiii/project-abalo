@@ -1,5 +1,4 @@
 import './bootstrap';
-import {pi, round} from 'mathjs';
 import {createApp} from 'vue';
 
 createApp({
@@ -49,7 +48,5 @@ createApp({
 }).mount('#app');
 
 
-//
-alert(round(pi, 2));
 
 

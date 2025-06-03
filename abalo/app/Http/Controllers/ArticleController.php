@@ -69,11 +69,16 @@ class ArticleController extends Controller
     public function search(Request $request){
         $search = $request->query('search');
 
-        //check if there is no keyword or to short then return 0
         $query = Article::query();
+        // if length > 3 -> take 5 articles
+        if(strlen($search) > 3){
+            $query->where('ab_name', 'ILIKE', "%$search%");
+            $articles = $query->limit(5)->get();
+        }
 
-        $query->where('ab_name', 'ILIKE', "%$search%");
-        $articles = $query->limit(5)->get();
+        //if empty or < 3 characters -> return all articles
+        $articles = $query->get();
+
         //has_image
         $articles = $articles->map(function ($item) {
             $item->has_image = file_exists(public_path('articelimages/' . $item->id . '.jpg'));

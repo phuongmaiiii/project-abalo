@@ -1,5 +1,6 @@
 <script>
 import Impressum from "./Impressum.vue";
+import ArtikelSuche from "./ArtikelSuche.vue";
 
 export default {
     name: "SiteBody.vue",
@@ -9,7 +10,7 @@ export default {
             default: false,
         }
     },
-    components: {Impressum}
+    components: {Impressum, ArtikelSuche}
 }
 </script>
 
@@ -17,7 +18,8 @@ export default {
     <main class="main">
         <Impressum v-if="showImpressum" @zurueck="$emit('zurueck')" />
         <template v-else>
-        <p>Willkommen zur neuen Vue-Seite für Abalo!</p>
+            <h1 style="text-align: center; color: #004080">Welcome to Abalo</h1>
+            <ArtikelSuche />
         </template>
     </main>
 </template>

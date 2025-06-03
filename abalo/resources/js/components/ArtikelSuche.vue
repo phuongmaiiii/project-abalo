@@ -1,6 +1,11 @@
 <script>
 export default {
     name: "ArtikelSuche",
+    props: {
+        cartItems: Array,
+        shoppingcartid: Number,
+    },
+    emits: ['update-cart', 'update-cart-id'],
     data(){
         return {
             searchTerm: '',
@@ -9,7 +14,8 @@ export default {
         }
     },
     mounted() {
-        this.performSearch(); //load all the articles, when client opens the web
+        this.performSearch(); //load all the articles on start
+        this.fetchCart(); // load cart in init
     },
     methods:{
         performSearch() {
@@ -48,6 +54,36 @@ export default {
         formatDate(dateStr) {
             const date = new Date(dateStr);
             return date.toLocaleDateString('de-DE') + ' ' + date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+        },
+        fetchCart() {
+            fetch('/api/shoppingcart', {
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    this.$emit('update-cart', data.items);
+                    this.$emit('update-cart-id', data.shoppingcartid);
+                    console.log("Items: "+ JSON.stringify(data.items, null,2));
+                    console.log("ShoppingCartId: "+data.shoppingcartid);
+                });
+        },
+        addToCart(article) {
+            fetch('/api/shoppingcart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ ab_article_id: article.id })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        this.fetchCart(); // update cart from server
+                    }
+                });
         }
     }
 }
@@ -68,6 +104,7 @@ export default {
                 <th>Beschreibung</th>
                 <th>Preis (€)</th>
                 <th>Erstellt am</th>
+                <th>Aktion</th>
             </tr>
             </thead>
             <tbody id="article-list">
@@ -80,6 +117,9 @@ export default {
                 <td>{{ article.ab_description }}</td>
                 <td>{{ formatPrice(article.ab_price) }}</td>
                 <td>{{ formatDate(article.ab_createdate) }}</td>
+                <td>
+                    <button class="add-to-cart" :disabled="Array.isArray(cartItems) && cartItems.some(i => i.ab_article_id == article.id)" @click="addToCart(article)">+</button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -87,5 +127,22 @@ export default {
 </template>
 
 <style scoped>
+.add-to-cart {
+    background-color: #004080;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover{
+    background-color: #0d2b49;
+}
+
+.add-to-cart:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 
 </style>

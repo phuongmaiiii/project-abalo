@@ -32,12 +32,29 @@ class ShoppingCartController extends Controller
     }
 
     public function removeArticle($shoppingcartid, $articleid){
-        $item = ShoppingCartItem::where('ab_shoppingcart_id', $shoppingcartid)->where('ab_article_id', $articleid)->first();
+        $item = ShoppingCartItem::where('ab_shoppingcart_id', $shoppingcartid)
+            ->where('ab_article_id', $articleid)
+            ->first();
 
         if($item){
            $item->delete();
         }
-        return response()->json(['success'=>true]);
+        // Lấy lại danh sách item mới nhất
+        $items = ShoppingCartItem::with('article')
+            ->where('ab_shoppingcart_id', $shoppingcartid)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'ab_article_id' => $item->article->id,
+                    'ab_name' => $item->article->ab_name,
+                    'ab_description' => $item->article->ab_description,
+                    'ab_createdate' => $item->article->ab_createdate,
+                ];
+            });
+        return response()->json([
+            'success'=>true,
+            'items'=>$items
+        ]);
     }
 
     public function getCart(){
@@ -47,8 +64,21 @@ class ShoppingCartController extends Controller
         if(!$cart){
             return response()->json(['items'=>[]]);
         }
-        $items = ShoppingCartItem::with('article')->where('ab_shoppingcart_id', $cart->id)->get();
+        $items = ShoppingCartItem::with('article')
+            ->where('ab_shoppingcart_id', $cart->id)
+            ->get()
+            ->map(function($item){
+                return [
+                    'ab_article_id' => $item->article->id,
+                    'ab_name' => $item->article->ab_name,
+                    'ab_description' => $item->article->ab_description,
+                    'ab_createdate' => $item->article->ab_createdate,
+                ];
+            });
 
-        return response()->json(['items'=>$items, 'shoppingcartid'=>$cart->id]);
+        return response()->json([
+            'shoppingcartid'=>$cart->id,
+            'items'=>$items
+        ]);
     }
 }

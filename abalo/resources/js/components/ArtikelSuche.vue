@@ -10,8 +10,11 @@ export default {
         return {
             searchTerm: '',
             articles: [],
-            timeoutId: null
-        }
+            timeoutId: null,
+            page: 1,
+            pageSize: 5,
+            totalArticles: 0
+        };
     },
     mounted() {
         this.performSearch(); //load all the articles on start
@@ -30,14 +33,16 @@ export default {
             this.timeoutId = setTimeout(() => {
                 //if length < 3 -> return all articles
                 const query = this.searchTerm.length < 3 ? '' : this.searchTerm;
+                const offset = (this.page - 1) * this.pageSize;
                 const xhr = new XMLHttpRequest();
                 // encodeURIComponent() will encode this string to be URI safe (avoid errors if there are spaces...)
-                xhr.open("GET", `/api/articles?search=${encodeURIComponent(query)}`, true);
+                xhr.open("GET", `/api/articles?search=${encodeURIComponent(query)}&&limit=${this.pageSize}&&offset=${offset}`, true);
 
                 xhr.onload = () => {
                     if (xhr.status >= 200 && xhr.status < 300) {
                         const res = JSON.parse(xhr.responseText);
                         this.articles = res.data;
+                        this.totalArticles = res.total;
                     } else {
                         console.error("Fehler beim Laden der Artikel:", xhr.statusText);
                     }
@@ -84,6 +89,23 @@ export default {
                         this.fetchCart(); // update cart from server
                     }
                 });
+        },
+        goToPage(pageNumber) {
+            if(pageNumber <1 || pageNumber > this.totalPages) return;
+            this.page = pageNumber;
+            this.performSearch();
+        }
+    },
+    computed: {
+        totalPages(){
+            return Math.ceil(this.totalArticles / this.pageSize);
+        }
+    },
+    //reactive data -> execute a callback funtion when that data changes
+    watch: {
+        searchTerm() {
+            this.page = 1; // mỗi khi search term đổi, quay lại trang 1
+            this.performSearch();
         }
     }
 }
@@ -123,12 +145,17 @@ export default {
             </tr>
             </tbody>
         </table>
+        <div class="pagination">
+            <button :disabled="page === 1" @click="goToPage(page - 1)">← Zurück</button>
+            <span>Seite {{ page }} von {{ totalPages }}</span>
+            <button :disabled="page === totalPages" @click="goToPage(page + 1)">Weiter →</button>
+        </div>
     </div>
 </template>
 
 <style scoped>
 .add-to-cart {
-    background-color: #004080;
+    background-color: #2d72b6;
     color: white;
     border: none;
     padding: 6px 10px;
@@ -137,12 +164,18 @@ export default {
 }
 
 .add-to-cart:hover{
-    background-color: #0d2b49;
+    background-color: #081a2c;
 }
 
 .add-to-cart:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
-
+.pagination {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 </style>

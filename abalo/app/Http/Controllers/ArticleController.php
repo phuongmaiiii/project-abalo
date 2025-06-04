@@ -67,17 +67,18 @@ class ArticleController extends Controller
 
     //M3-Aufgabe7
     public function search(Request $request){
-        $search = $request->query('search');
+        $search = $request->query('search', '');
+        $limit = intval($request->query('limit', 5));
+        $offset = intval($request->query('offset', 0));
 
         $query = Article::query();
         // if length > 3 -> take 5 articles
         if(strlen($search) > 3){
             $query->where('ab_name', 'ILIKE', "%$search%");
-            $articles = $query->limit(5)->get();
         }
+        $total = $query->count(); // count all articles
 
-        //if empty or < 3 characters -> return all articles
-        $articles = $query->get();
+        $articles = $query->offset($offset)->limit($limit)->get();
 
         //has_image
         $articles = $articles->map(function ($item) {
@@ -87,7 +88,7 @@ class ArticleController extends Controller
 
         return response()->json([
             'success' => true,
-            'count' => $articles->count(),
+            'total' => $total,
             'data' => $articles,
         ]);
     }

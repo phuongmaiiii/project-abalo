@@ -7,9 +7,9 @@ name: "SiteHeader.vue",
     data(){
     return {
         menuData: [
-            {title: "Home"},
+            {title: "Home", url:"/newsite"},
             {title: "Kategorien", dynamic: true},
-            {title: "Verkaufen"},
+            {title: "Verkaufen", url:"/newsite/newarticle"},
             {
                 title: "Unternehmen",
                 children: [

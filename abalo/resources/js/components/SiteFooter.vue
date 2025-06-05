@@ -11,17 +11,6 @@ export default {
     </footer>
 </template>
 
-<style scoped>
-.footer {
-    background: #eee;
-    text-align: center;
-    padding: 15px;
-}
-a {
-    display: block;
-    margin-top: 8px;
-    color: #004080;
-    text-decoration: underline;
-    cursor: pointer;
-}
+<style lang="scss" scoped>
+    @use'../../scss/footer'
 </style>

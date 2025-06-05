@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [
         vue(),
         laravel({
-            input: ['resources/css/app.css',
+            input: [
                 'resources/js/app.js',
 
                 'resources/js/homepage.js',
@@ -22,7 +22,13 @@ export default defineConfig({
 
                 'resources/css/homepage.css',
                 'resources/css/newarticle.css',
-                'resources/css/cart.css',],
+                'resources/css/cart.css',
+
+                'resources/scss/app.scss',
+                'resources/scss/navbar.scss',
+                'resources/scss/variables.scss',
+                'resources/scss/articlelist.scss',
+                'resources/scss/footer.scss'],
             refresh: true,
         }),
         tailwindcss(),

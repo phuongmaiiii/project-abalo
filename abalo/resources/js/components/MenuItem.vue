@@ -11,10 +11,10 @@ export default {
 </script>
 
 <template>
-    <li>
+    <li class="menu__item">
         {{item.title}}
-        <ul v-if="item.children">
-            <MenuItem v-for="(child, i) in item.children" :key="i" :item="child" />
+        <ul v-if="item.children" class="menu__submenu">
+            <MenuItem v-for="(child, i) in item.children" :key="i" :item="child" class="menu__submenu--item" />
         </ul>
     </li>
 </template>

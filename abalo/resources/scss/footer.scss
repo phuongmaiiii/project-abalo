@@ -1,0 +1,18 @@
+@use 'sass:math';
+@use '../scss/variables' as base;
+@function rem($px){
+    @return math.div($px,16)*1rem;
+}
+
+.footer {
+    background: base.$color-background;
+    text-align: center;
+    padding: rem(15);
+}
+a {
+    display: block;
+    margin-top: 8px;
+    color: base.$color-primary;
+    text-decoration: underline;
+    cursor: pointer;
+}

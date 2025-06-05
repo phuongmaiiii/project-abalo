@@ -153,29 +153,6 @@ export default {
     </div>
 </template>
 
-<style scoped>
-.add-to-cart {
-    background-color: #2d72b6;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.add-to-cart:hover{
-    background-color: #081a2c;
-}
-
-.add-to-cart:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-.pagination {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
+<style lang="scss" scoped>
+    @use '../../scss/articlelist'
 </style>

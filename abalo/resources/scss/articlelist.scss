@@ -1,0 +1,31 @@
+@use '../scss/variables' as base;
+@mixin button-style($color){
+    background-color: $color;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.add-to-cart {
+    @include button-style(#2d72b6)
+}
+
+.add-to-cart:hover{
+    background-color: #081a2c;
+}
+
+.add-to-cart:disabled {
+    background-color: base.$color-background;
+    cursor: not-allowed;
+}
+.pagination {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.pagination button{
+    cursor: pointer;
+}

@@ -26,10 +26,6 @@ export default {
     </div>
 </template>
 
-<style scoped>
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
+<style  lang="scss">
+    @use "../../scss/app";
 </style>

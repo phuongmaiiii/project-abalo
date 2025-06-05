@@ -131,6 +131,20 @@
       <path value="$PROJECT_DIR$/abalo/vendor/barryvdh/laravel-ide-helper" />
       <path value="$PROJECT_DIR$/abalo/vendor/barryvdh/reflection-docblock" />
       <path value="$PROJECT_DIR$/abalo/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/abalo/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/abalo/vendor/react/cache" />
+      <path value="$PROJECT_DIR$/abalo/vendor/react/event-loop" />
+      <path value="$PROJECT_DIR$/abalo/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/abalo/vendor/react/promise-timer" />
+      <path value="$PROJECT_DIR$/abalo/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/abalo/vendor/react/stream" />
+      <path value="$PROJECT_DIR$/abalo/vendor/react/socket" />
+      <path value="$PROJECT_DIR$/abalo/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/abalo/vendor/laravel/reverb" />
+      <path value="$PROJECT_DIR$/abalo/vendor/clue/redis-protocol" />
+      <path value="$PROJECT_DIR$/abalo/vendor/clue/redis-react" />
+      <path value="$PROJECT_DIR$/abalo/vendor/ratchet/rfc6455" />
+      <path value="$PROJECT_DIR$/abalo/vendor/paragonie/sodium_compat" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

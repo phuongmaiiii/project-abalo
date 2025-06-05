@@ -122,6 +122,20 @@
       <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/barryvdh/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/laravel/sanctum" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/clue/redis-protocol" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/clue/redis-react" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/evenement/evenement" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/laravel/reverb" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/paragonie/sodium_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/pusher/pusher-php-server" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/ratchet/rfc6455" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/react/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/react/dns" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/react/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/react/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/react/promise-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/react/socket" />
+      <excludeFolder url="file://$MODULE_DIR$/abalo/vendor/react/stream" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

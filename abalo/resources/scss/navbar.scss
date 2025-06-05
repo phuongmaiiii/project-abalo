@@ -31,6 +31,7 @@
         cursor: pointer;
     }
     &__submenu {
+        list-style: none;
         display: none;
         position: absolute;
         top: 100%;

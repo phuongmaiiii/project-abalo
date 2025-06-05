@@ -19,8 +19,10 @@ export default {
 
 <style scoped>
     .impressum{
+        margin-top: 20px;
         padding: 20px;
         background-color: #eee;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
     button{
         margin-top: 20px;

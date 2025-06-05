@@ -50,3 +50,7 @@ Route::get('/abalo/newarticle', function () {
 Route::get('/newsite', function () {
     return view('newsite');
 });
+//M5-Aufgabe8
+Route::get('/newsite/newarticle', function () {
+    return view('newsite_newarticle');
+});

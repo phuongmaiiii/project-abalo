@@ -19,6 +19,7 @@ export default defineConfig({
                 'resources/js/old/newarticle_old.js',
                 'resources/js/vue/newarticle.js',
                 'resources/js/app_v2.js',
+                'resources/js/app_v2_newarticle.js',
 
                 'resources/css/homepage.css',
                 'resources/css/newarticle.css',
